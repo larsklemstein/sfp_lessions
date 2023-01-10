@@ -41,7 +41,7 @@ def run_tasks_parallel(amount_tasks, wait_time: float) -> int:
 
     for n in range(amount_tasks):
         task = threading.Thread(
-            target=the_task, args=(f'parallel_{n}', wait_time,))
+            name=n, target=the_task, args=(f'parallel_{n}', wait_time,))
         task.start()
         tasks.append(task)
 
