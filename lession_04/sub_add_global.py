@@ -33,9 +33,6 @@ def main():
 
     logging.info('resulting value: ' + str(value))
 
-    if value == 0:
-        logging.info('BUT WHY?!?')
-
     sys.exit(0)
 
 
