@@ -1,0 +1,4 @@
+Python 3.4:    yes
+Python 3.8:    yes
+
+Python 3.10:   no
