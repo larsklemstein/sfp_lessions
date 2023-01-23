@@ -13,7 +13,7 @@ value = 0
 def main():
     logging.basicConfig(level=logging.DEBUG)
 
-    iterations = 1000000
+    iterations = 100 * 1000
     logging.debug(f'will execute {iterations} iterations in each thread')
 
     lock = t.Lock()
@@ -41,16 +41,16 @@ def main():
 def add(n: int, lock: t.Lock):
     global value
 
-    with lock:
-        for i in range(n):
+    for _ in range(n):
+        with lock:
             value += 1
 
 
 def substract(n: int, lock: t.Lock):
     global value
 
-    with lock:
-        for i in range(n):
+    for _ in range(n):
+        with lock:
             value -= 1
 
 
