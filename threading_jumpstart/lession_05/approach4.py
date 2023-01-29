@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
-"""Start 4 worker threads to fish values from a single shared queue. Each thread stores
-   the sum locally and in the main function the cumulated value will be calculated.
-   Use a simple None value sent to the queue to signal each thread that the queue
-   is closed. Probably there are much better approaches than this(?)
+"""Start 4 worker threads to fish values from a single shared queue.
+   Each thread stores the sum locally and in the main function the cumulated
+   value will be calculated. Use a simple None value sent to the queue to
+   signal each thread that the queue is closed. Probably there are much better
+   approaches than this(?)
 """
 
 
 import logging
 import sys
 import threading
-import time
 import random
 import queue
 
@@ -34,7 +34,7 @@ def main():
     for n in values:
         q.put(n)
 
-    for i in range(amount_threads):
+    for _ in range(amount_threads):
         q.put(Counter.done)
 
     v_total = join_threads_and_get_cumulated_result('t_')
@@ -68,13 +68,13 @@ class Counter(threading.Thread):
         return self.__val
 
 
-def worker_threads(prefix='': str)):
+def worker_threads(prefix: str = ''):
     for t in threading.enumerate():
         if t is not threading.main_thread() and t.name.startswith(prefix):
             yield t
 
 
-def join_threads_and_get_cumulated_result(prefix: str) -> int:
+def join_threads_and_get_cumulated_result(prefix: str = '') -> int:
     v_total = 0
 
     for t in worker_threads(prefix):
@@ -84,6 +84,7 @@ def join_threads_and_get_cumulated_result(prefix: str) -> int:
         logging.debug(f'joined thread {t.name}')
 
     return v_total
+
 
 if __name__ == '__main__':
     main()
